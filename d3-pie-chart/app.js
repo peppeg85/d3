@@ -34,11 +34,11 @@ async function draw() {
 
   const arc = d3.arc()
     .outerRadius(radius)
-    .innerRadius(0)
+    .innerRadius(180)
 
   const arcLabels = d3.arc()
     .outerRadius(radius)
-    .innerRadius(150)
+    .innerRadius(180)
 
   const colors = d3.quantize(d3.interpolateSpectral, dataset.length)
   const colorScale = d3.scaleOrdinal()
@@ -71,7 +71,7 @@ async function draw() {
         .append('tspan')
         .attr('y', 9)
         .attr('x', 0)
-        .text(d => d.data.value)
+        .text(d => parseInt(d.data.value).toLocaleString('it-IT'))
     )
 }
 

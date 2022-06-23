@@ -1,15 +1,13 @@
 async function draw() {
   // Data
-  const dataset = await d3.csv('data.csv', d => {
-    /* for (let i in d) {
-      if (i != "name") {
-        d[i] = parseInt(d[i])
-      }
-    } */
+  const dataset = await d3.csv('data.csv', (d, index, columns) => {
+    d3.autoType(d)
+    d.total = d3.sum(columns, (c) => d[c])
 
-    d3.autoType(d) //pericolosa, in alcuni casi può generare conversioni errate
     return d
   })
+
+  dataset.sort((a, b) => b.total - a.total)
 
   // Dimensions
   let dimensions = {
@@ -36,19 +34,61 @@ async function draw() {
   // Scales
   const stackGenerator = d3.stack()
     .keys(dataset.columns.slice(1))
-  const stackData = stackGenerator(dataset).map(ageGroup => {
-    ageGroup.forEach(element => {
-      element.key = ageGroup.key
-    });
+  const stackData = stackGenerator(dataset).map((ageGroup) => {
+    ageGroup.forEach((state) => {
+      state.key = ageGroup.key
+    })
+
     return ageGroup
   })
 
   const yScale = d3.scaleLinear()
-    .domain([0, d3.max(stackData, ag => {
-      return d3.max(ag, state => state[1])
-    })
+    .domain([
+      0, d3.max(stackData, (ag) => {
+        return d3.max(ag, state => state[1])
+      })
     ])
     .rangeRound([dimensions.ctrHeight, dimensions.margins])
+  const xScale = d3.scaleBand()
+    .domain(dataset.map(state => state.name))
+    .range([dimensions.margins, dimensions.ctrWidth])
+    // .paddingInner(0.1)
+    // .paddingOuter(0.1)
+    .padding(0.1)
+  const colorScale = d3.scaleOrdinal()
+    .domain(stackData.map(d => d.key))
+    .range(d3.schemeSpectral[stackData.length])
+    .unknown('#ccc')
+
+  // Draw Bars
+  const ageGroups = ctr.append('g')
+    .classed('age-groups', true)
+    .selectAll('g')
+    .data(stackData)
+    .join('g')
+    .attr('fill', d => colorScale(d.key))
+
+  ageGroups.selectAll('rect')
+    .data(d => d)
+    .join('rect')
+    .attr('x', d => xScale(d.data.name))
+    .attr('y', d => yScale(d[1]))
+    .attr('width', xScale.bandwidth())
+    .attr('height', d => yScale(d[0]) - yScale(d[1]))
+
+  // Draw Axes
+  const xAxis = d3.axisBottom(xScale)
+    .tickSizeOuter(0)
+  const yAxis = d3.axisLeft(yScale)
+    .ticks(null, 's')
+
+  ctr.append('g')
+    .attr('transform', `translate(0, ${dimensions.ctrHeight})`)
+    .call(xAxis)
+
+  ctr.append('g')
+    .attr('transform', `translate(${dimensions.margins}, 0)`)
+    .call(yAxis)
 }
 
 draw()

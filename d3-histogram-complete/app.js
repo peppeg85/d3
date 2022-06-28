@@ -41,8 +41,8 @@ async function draw() {
 
     // Scales
     const xScale = d3.scaleLinear()
-      .domain(d3.extent(dataset, xAccessor))
-      .range([0, dimensions.ctrWidth])
+      .domain(d3.extent(dataset, xAccessor))  //extent di base ritorna un array con due valori, minimo e massimo. se viene passata una funzione accessoria, viene applicata a dataset prima dell'esecuziopne, per esempio in questo caso l'extent deve essere applicato su d.currently[metric], quindi la funzione accessoria "filtra" i dati da passare a extent
+      .range([0, dimensions.ctrWidth]) // spalma il dominio sul range (33->0, 64->dimensions.ctrWidth)
       .nice()
 
     const bin = d3.bin()

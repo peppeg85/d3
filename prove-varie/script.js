@@ -56,4 +56,3 @@ const edit = (val) => {
 
 d3.select('#add').on('click', () => edit(true))
 d3.select('#remove').on('click', () => edit(false))
-console.log('dio')

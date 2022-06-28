@@ -12,7 +12,7 @@ async function draw() {
   // Dimensions
   let dimensions = {
     width: 1000,
-    height: 600,
+    height: 400,
     margins: 20,
   };
 
@@ -22,8 +22,9 @@ async function draw() {
   // Draw Image
   const svg = d3.select('#chart')
     .append("svg")
-    .attr("width", dimensions.width)
-    .attr("height", dimensions.height)
+    .attr("preserveAspectRatio", "xMinYMin meet")
+    .attr("viewBox", `0 0 ${dimensions.width} ${dimensions.height}`)
+    .classed("svg-content", true);
 
   const ctr = svg.append("g")
     .attr(

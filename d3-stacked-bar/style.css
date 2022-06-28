@@ -4,6 +4,14 @@ body{
 
 #chart{
   margin: 25px auto;
-  width: 1000px;
+  max-width: 1000px;
   position: relative;
+}
+
+.svg-container {
+  display: inline-block;
+  position: relative;
+  width: 100%;
+  vertical-align: top;
+  overflow: hidden;
 }

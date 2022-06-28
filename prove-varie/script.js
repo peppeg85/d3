@@ -10,8 +10,6 @@ const updateList = () => {
     ).text(d => d)
 }
 
-
-
 /* const add = () => {
     console.log('add', dataset)
 

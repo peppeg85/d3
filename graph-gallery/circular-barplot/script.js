@@ -15,10 +15,15 @@ const svg = d3.select("#my_dataviz")
     .append("g")
     .attr("transform", `translate(${width / 2 + margin.left}, ${height / 2 + margin.top})`);
 
-const mouseoverHandler = function (event) {
-    console.log(event)
-    console.log(this)
+const onmouseoverHandler = function (ev, el) {
+    console.log(ev)
+    console.log(el)
 }
+const onmouseoutHandler = function (ev, el) {
+    console.log(ev)
+    console.log(el)
+}
+
 d3.csv("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/7_OneCatOneNum.csv").then(function (data) {
     console.log
     // Scales
@@ -43,7 +48,15 @@ d3.csv("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_data
             .endAngle(d => x(d.Country) + x.bandwidth())
             .padAngle(0.01)
             .padRadius(innerRadius))
-        .on('mouseover', mouseoverHandler)
+        .on('mouseover', function (d, el) {
+            console.log(d)
+            console.log(el)
+            d3.select(this).attr("fill", "#FDE5BD");
+        })
+        .on("mouseout", function (d) {
+            d3.select(this)
+                .attr("fill", "#69b3a2")
+        })
 
     // Add the labels
     svg.append("g")
@@ -57,5 +70,6 @@ d3.csv("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_data
         .attr("transform", function (d) { return (x(d.Country) + x.bandwidth() / 2 + Math.PI) % (2 * Math.PI) < Math.PI ? "rotate(180)" : "rotate(0)"; })
         .style("font-size", "11px")
         .attr("alignment-baseline", "middle")
-
+        .on('mouseover', onmouseoverHandler)
+        .on("mouseout", onmouseoutHandler)
 });

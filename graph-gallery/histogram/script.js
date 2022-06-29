@@ -21,16 +21,25 @@ const svg = d3.select("#my_dataviz")
         `translate(${margin.left},${margin.top})`);
 
 // get the data
-d3.csv(dataUrl).then(function (data) {
+d3.csv('newData.csv').then(function (data) {
 
-    /*  const xAccessor = d => parseInt(d.price)
-     console.log(d3.extent(data, xAccessor)) */
+     data = []
+    for (let j = 0; j < 1000; j++) {
+        for (let i = -50; i < 50; i++) {
+            data.push({price:Math.floor(Math.random() * i)})
+        }
+    } 
+
+
+    const xAccessor = d => parseInt(d.price)
+    console.log(d3.extent(data, xAccessor))
     // X axis: scale and draw:
     const x = d3.scaleLinear()
-        //.domain(d3.extent(data, xAccessor))     // can use this instead of 1000 to have the max of data: d3.max(data, function(d) { return +d.price }) // è  troppo esteso
-        .domain([0, 1000])     // can use this instead of 1000 to have the max of data: d3.max(data, function(d) { return +d.price })
+        .domain(d3.extent(data, xAccessor))     // can use this instead of 1000 to have the max of data: d3.max(data, function(d) { return +d.price }) // è  troppo esteso
+        // .domain([-10, 10])     // can use this instead of 1000 to have the max of data: d3.max(data, function(d) { return +d.price })
         .range([0, ctxWidth])
         .nice()
+
     svg.append("g")
         .attr("transform", `translate(0, ${ctxHeight})`)
         .call(d3.axisBottom(x));
@@ -49,7 +58,7 @@ d3.csv(dataUrl).then(function (data) {
         .range([ctxHeight, 0]);
 
     y.domain([0, d3.max(bins, function (d) { return d.length; })]);   // d3.hist has to be called before the Y axis obviously
-    
+
     svg.append("g")
         .call(d3.axisLeft(y));
 

@@ -40,7 +40,6 @@ const updateList = () => {
         )
         .text(d => d)
     console.log(newul)
-
 } */
 
 const edit = (val) => {

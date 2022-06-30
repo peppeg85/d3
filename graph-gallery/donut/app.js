@@ -50,7 +50,8 @@ const colors = d3.quantize(d3.interpolateGnBu, sortedData.length)
 const colorScale = d3.scaleOrdinal()
     .domain(sortedData.map(el => el.name))
     .range(colors)
-
+console.log(colors)
+console.log(colorScale)
 // Compute the position of each group on the pie:
 
 const pie = d3.pie()

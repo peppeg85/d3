@@ -53,7 +53,8 @@ d3.csv("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/da
         .call(d3.axisLeft(y));
 
     // Add the lines
-    const line = d3.line().curve(d3.curveCatmullRom)
+    const line = d3.line()
+    .curve(d3.curveCatmullRom)//commentabile
         .x(d => x(+d.time))
         .y(d => y(+d.value))
     svg.selectAll("myLines")

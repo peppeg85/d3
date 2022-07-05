@@ -146,7 +146,6 @@ function drawLegends(rootData) {
 
 function drawTreemap(hierarchy) {
     var leaves = hierarchy.leaves();
-
     var cells = treemapContainer.append("g")
         .classed('cells', true)
         .attr("transform", "translate(" + [-treemapRadius, -treemapRadius] + ")")

@@ -35,11 +35,8 @@ d3.json("globalEconomyByGDP.json").then(function (rootData) {
     initData();
     initLayout(rootData);
     hierarchy = d3.hierarchy(rootData).sum(function (d) { return d.weight; });
-    let treemap = _voronoiTreemap
-        .clip(circlingPolygon);
-    console.log(treemap)
-    treemap(hierarchy);
-
+    _voronoiTreemap
+        .clip(circlingPolygon)(hierarchy);
     drawTreemap(hierarchy);
 });
 

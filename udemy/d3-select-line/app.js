@@ -25,7 +25,7 @@ d3.csv("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/da
         return {
             name: grpName,
             values: data.map(function (d) {
-                return { time: d.time, value: +d[grpName] };
+                return { time: d.time, value: +d[grpName] };//+ trasforma in valore numerico
             })
         };
     });
@@ -53,7 +53,7 @@ d3.csv("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/da
         .call(d3.axisLeft(y));
 
     // Add the lines
-    const line = d3.line()
+    const line = d3.line().curve(d3.curveCatmullRom)
         .x(d => x(+d.time))
         .y(d => y(+d.value))
     svg.selectAll("myLines")

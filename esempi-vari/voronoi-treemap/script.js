@@ -56,6 +56,7 @@ function computeCirclingPolygon(radius) {
         )
     }
 
+    console.log(circlingPolygon)
     return circlingPolygon;
 };
 

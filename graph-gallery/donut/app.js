@@ -8,7 +8,7 @@ const width = 450,
 // The radius of the pieplot is half the width or half the height (smallest one). I subtract a bit of margin.
 const radius = Math.min(width, height) / 2 - margin
 
-const opacity=0.7
+const opacity = 0.7
 // append the svg object to the div called 'my_dataviz'
 const svg = d3.select("#my_dataviz")
     .append("svg")
@@ -46,12 +46,20 @@ const sortedData = newData.slice().sort((a, b) => d3.ascending(a.value, b.value)
 /* const color = d3.scaleOrdinal()
     .range(["#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56"]) */
 
-const colors = d3.quantize(d3.interpolateGnBu, sortedData.length)
+const colors = d3.quantize(d3.interpolateBrBG, sortedData.length)
 const colorScale = d3.scaleOrdinal()
     .domain(sortedData.map(el => el.name))
     .range(colors)
-console.log(colors)
-console.log(colorScale)
+
+
+//alternativa colori
+
+/* const colors = d3.quantize(d3.interpolateGnBu, sortedData.length)
+   const colorScale = d3.scaleOrdinal()
+       .domain(sortedData.map(el => el.name))
+       .range(d3.schemeCategory10)
+ */
+
 // Compute the position of each group on the pie:
 
 const pie = d3.pie()
@@ -63,7 +71,7 @@ const mouseoverHandler = function (ev, el) {
     d3.select(this).style("opacity", 1);
 }
 const mouseoutHandler = function (ev, el) {
-    d3.select(this).style("opacity",opacity);
+    d3.select(this).style("opacity", opacity);
 }
 
 const arcLabels = d3.arc()

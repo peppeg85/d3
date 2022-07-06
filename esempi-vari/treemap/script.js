@@ -1,4 +1,4 @@
-var treeData =
+/* var treeData =
 {
     "name": "Top Level",
     "children": [
@@ -11,7 +11,29 @@ var treeData =
         },
         { "name": "Level 2: B" }
     ]
-};
+}; */
+
+
+var flatData = [
+    { "name": "Top Level", "parent": null },
+    { "name": "Level 2: A", "parent": "Top Level" },
+    { "name": "Level 2: B", "parent": "Top Level" },
+    { "name": "Son of A", "parent": "Level 2: A" },
+    { "name": "Daughter of A", "parent": "Level 2: A" }
+];
+
+var treeData = d3.stratify()
+    .id(d => d.name)
+    .parentId(d => d.parent)
+    (flatData)
+
+treeData.each(function (d) {
+
+    console.log(d)
+
+    d.name = d.id;
+});
+console.log('data ', treeData)
 
 // set the dimensions and margins of the diagram
 var margin = { top: 40, right: 30, bottom: 50, left: 30 },
@@ -22,10 +44,9 @@ var treemap = d3.tree()
     .size([width, height]);
 // assigns the data to a hierarchy using parent-child relationships
 var nodes = d3.hierarchy(treeData);
-console.log('primo ',nodes)
 // maps the node data to the tree layout
 newNodes = treemap(nodes);
-console.log('second ',newNodes)
+
 // append the svg obgect to the body of the page
 // appends a 'group' element to 'svg'
 // moves the 'group' element to the top left margin
@@ -66,5 +87,3 @@ node.append("text")
     .attr("y", function (d) { return d.children ? -20 : 20; })
     .style("text-anchor", "middle")
     .text(function (d) { return d.data.name; });
-
-

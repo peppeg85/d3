@@ -4,7 +4,7 @@ async function draw() {
 
   // Dimensions
   let dimensions = {
-    width: 800,
+    width: 600,
     height: 400,
     margins: 50
   };
@@ -23,8 +23,6 @@ async function draw() {
       "transform",
       `translate(${dimensions.margins}, ${dimensions.margins})`
     )
-
-  // console.log({ original: dataset, new: newDataset })
 
   const labelsGroup = ctr.append('g')
     .classed('bar-labels', true)

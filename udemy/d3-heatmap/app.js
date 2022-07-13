@@ -78,6 +78,7 @@ arrType.forEach(el => draw(el.title, el.type))
 draw('Quantize scale', 'quantize')
 draw('Quantile scale', 'quantile')
 draw('Threshold scale', 'threshold') */
+
 /* draw('#heatmap1', 'linear')
 draw('#heatmap2', 'quantize')
 draw('#heatmap3', 'quantile')

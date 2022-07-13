@@ -9,7 +9,7 @@ async function draw(el, scale) {
   };
 
   const box = 30
-  const div = d3.select('.external').append('div').classed('ctr',true)
+  const div = d3.select('.external').append('div').classed('ctr', true)
   div.append('h3').text(el)
   // Draw Image
   const svg = div
@@ -53,10 +53,31 @@ async function draw(el, scale) {
 
 }
 
-draw('Linear scale', 'linear')
+let arrType = [
+  {
+    title: 'Linear scale',
+    type: 'linear'
+  },
+  {
+    title: 'Quantize scale',
+    type: 'quantize'
+  },
+  {
+    title: 'Quantile scale',
+    type: 'quantile'
+  },
+  {
+    title: 'Threshold scale',
+    type: 'threshold'
+  }
+]
+
+arrType.forEach(el => draw(el.title, el.type))
+
+/* draw('Linear scale', 'linear')
 draw('Quantize scale', 'quantize')
 draw('Quantile scale', 'quantile')
-draw('Threshold scale', 'threshold')
+draw('Threshold scale', 'threshold') */
 /* draw('#heatmap1', 'linear')
 draw('#heatmap2', 'quantize')
 draw('#heatmap3', 'quantile')

@@ -79,6 +79,7 @@ async function draw() {
     .style('opacity', 0)
     .on('touchmouse mousemove', function (event) {
       const mousePos = d3.pointer(event, this)
+      console.log(mousePos)
       const date = xScale.invert(mousePos[0])
 
       //custom bisector

@@ -8,7 +8,18 @@ h1:not(:first-child) {
 
 .chart{
   width: 600px;
-  height: 150px;
+  height: 100%;
   background-color: #f7f7f7;
   margin: 25px auto;
+}
+.ctr{
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  align-items: center;
+}
+h3{
+  text-align: center;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 200;
 }

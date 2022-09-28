@@ -9,12 +9,14 @@ async function draw(el, scale) {
   };
 
   const box = 30
-
+  const div = d3.select('.external').append('div').classed('ctr', true)
+  div.append('h3').text(el)
   // Draw Image
-  const svg = d3.select(el)
+  const svg = div
     .append("svg")
     .attr("width", dimensions.width)
     .attr("height", dimensions.height)
+
 
   //scales
   let colorScale;
@@ -25,15 +27,15 @@ async function draw(el, scale) {
   } else if (scale === 'quantize') {
     colorScale = d3.scaleQuantize()
       .domain(d3.extent(dataset))
-      .range(['white','pink','red'])
-  }else if (scale === 'quantile') {
+      .range(['white', 'pink', 'red'])
+  } else if (scale === 'quantile') {
     colorScale = d3.scaleQuantile()
       .domain(dataset)
-      .range(['white','pink','red'])
-  }else{
+      .range(['white', 'pink', 'red'])
+  } else {
     colorScale = d3.scaleThreshold()
-    .domain([45200,135600])
-    .range(d3.schemeReds[3])
+      .domain([45200, 135600])
+      .range(d3.schemeReds[3])
   }
   //rectangles
   svg.append('g')
@@ -51,7 +53,33 @@ async function draw(el, scale) {
 
 }
 
-draw('#heatmap1', 'linear')
+let arrType = [
+  {
+    title: 'Linear scale',
+    type: 'linear'
+  },
+  {
+    title: 'Quantize scale',
+    type: 'quantize'
+  },
+  {
+    title: 'Quantile scale',
+    type: 'quantile'
+  },
+  {
+    title: 'Threshold scale',
+    type: 'threshold'
+  }
+]
+
+arrType.forEach(el => draw(el.title, el.type))
+
+/* draw('Linear scale', 'linear')
+draw('Quantize scale', 'quantize')
+draw('Quantile scale', 'quantile')
+draw('Threshold scale', 'threshold') */
+
+/* draw('#heatmap1', 'linear')
 draw('#heatmap2', 'quantize')
 draw('#heatmap3', 'quantile')
-draw('#heatmap4', 'threshold')
+draw('#heatmap4', 'threshold') */

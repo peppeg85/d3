@@ -1,5 +1,62 @@
 [
-{
-    "prova":"solo per push"
-}
+    {
+        "name": "Oncology",
+        "value": "Phase 1"
+    },
+    {
+        "name": "Oncology",
+        "value": "IND-enabling"
+    },
+    {
+        "name": "Oncology",
+        "value": "IND-enabling"
+    },
+    {
+        "name": "Oncology",
+        "value": "Late Discovery"
+    },
+    {
+        "name": "Oncology",
+        "value": "Late Discovery"
+    },
+    {
+        "name": "Anti-infective",
+        "value": "Late Discovery"
+    },
+    {
+        "name": "Anti-infective",
+        "value": "EarlyDiscovery"
+    },
+    {
+        "name": "Oncology",
+        "value": "EarlyDiscovery"
+    },
+    {
+        "name": "Oncology",
+        "value": "EarlyDiscovery"
+    },
+    {
+        "name": "Covid-19",
+        "value": "EarlyDiscovery"
+    },
+    {
+        "name": "Covid-19",
+        "value": "Late Discovery"
+    },
+    {
+        "name": "Covid-19",
+        "value": "Late Discovery"
+    },
+    {
+        "name": "Infiammation & immunity",
+        "value": "EarlyDiscovery"
+    },
+    {
+        "name": "Infiammation & immunity",
+        "value": "EarlyDiscovery"
+    },
+    {
+        "name": "Infiammation & immunity",
+        "value": "EarlyDiscovery"
+    }
 ]

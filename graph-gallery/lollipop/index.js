@@ -1,7 +1,25 @@
 // set the dimensions and margins of the graph
-const margin = { top: 10, right: 30, bottom: 40, left: 100 },
-  width = 460 - margin.left - margin.right,
+const margin = { top: 10, right: 30, bottom: 40, left: 150 },
+  width = 800 - margin.left - margin.right,
   height = 500 - margin.top - margin.bottom;
+
+const colors = {
+  Oncology: "#d48320",
+  "Anti-infective": "#b0bd42",
+  "Covid-19": "#308ea6",
+  "Infiammation & immunity": "#64156b",
+};
+
+const xLabels = [
+  "",
+  "EarlyDiscovery",
+  "Late Discovery",
+  "IND-enabling",
+  "Phase 1",
+  "Phase 2",
+];
+
+const colorNameAccessor = (d) => d.name.split("_")[0];
 
 // append the svg object to the body of the page
 const svg = d3
@@ -12,41 +30,39 @@ const svg = d3
   .append("g")
   .attr("transform", `translate(${margin.left}, ${margin.top})`);
 
-// Parse the Data
-d3.csv(
-  "https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/7_OneCatOneNum_header.csv"
-).then(function (data) {
-  // Add X axis
+d3.json("data.json").then(function (data) {
+  // X axis
   console.log(data);
-  for (let el of data) {
-    el.Value = el.Country;
-  }
-  let labels = data.map((el) => el.Country);
-  console.log(labels);
-  const x = d3.scalePoint().domain(labels).range([0, width]);
+
+  const x = d3.scalePoint().domain(xLabels).range([0, width]);
   const xAxis = d3.axisBottom(x).tickFormat(function (d, i) {
     return d;
   });
-  svg
-    .append("g")
-    .attr("transform", `translate(0, ${height})`)
-    .call(xAxis)
-    .selectAll("text")
-    .attr("transform", "translate(-10,0)rotate(-45)")
-    .style("text-anchor", "end");
+  svg.append("g").attr("transform", `translate(0, ${height})`).call(xAxis);
 
   // Y axis
-  const y = d3
-    .scaleBand()
-    .range([0, height])
-    .domain(
-      data.map(function (d) {
-        return d.Country;
-      })
+  const yLabels = data.map(function (d, i) {
+    return d.name + "_" + i;
+  });
+  for (let i = 0; i < data.length; i++) {
+    data[i].name = data[i].name + "_" + i;
+  }
+  console.log(yLabels);
+  console.log(data);
+  const y = d3.scaleBand().range([0, height]).domain(yLabels).padding(1);
+  svg
+    .append("g")
+    .call(
+      d3
+        .axisLeft(y)
+        .tickFormat(function (d, i) {
+          return d.split("_")[0];
+        })
+        .tickSizeOuter(0)
+        .tickSizeInner(0)
     )
-    .padding(1);
-  svg.append("g").call(d3.axisLeft(y));
-
+    .select(".domain")
+    .remove();
   // Lines
   svg
     .selectAll("myline")
@@ -54,14 +70,14 @@ d3.csv(
     .enter()
     .append("line")
     .attr("x1", function (d) {
-      return x(d.Value);
+      return x(d.value);
     })
     .attr("x2", x(0))
     .attr("y1", function (d) {
-      return y(d.Country);
+      return y(d.name);
     })
     .attr("y2", function (d) {
-      return y(d.Country);
+      return y(d.name);
     })
     .attr("stroke", "grey");
 
@@ -72,12 +88,15 @@ d3.csv(
     .enter()
     .append("circle")
     .attr("cx", function (d) {
-      return x(d.Value);
+      return x(d.value);
     })
     .attr("cy", function (d) {
-      return y(d.Country);
+      return y(d.name);
     })
     .attr("r", "4")
-    .style("fill", "#69b3a2")
+    .style("fill", function (d) {
+      console.log(d);
+      return colors[colorNameAccessor(d)];
+    })
     .attr("stroke", "black");
 });

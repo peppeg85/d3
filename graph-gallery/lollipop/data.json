@@ -1,62 +1,92 @@
 [
     {
         "name": "Oncology",
-        "value": "Phase 1"
+        "value": "Phase 1",
+        "exscentia": "Majority",
+        "Partner": "Evotec"
     },
     {
         "name": "Oncology",
-        "value": "IND-enabling"
+        "value": "IND-enabling",
+        "exscentia": "Partnered",
+        "Partner": "Evotec"
     },
     {
         "name": "Oncology",
-        "value": "IND-enabling"
+        "value": "IND-enabling",
+        "exscentia": "Majority",
+        "Partner": "Evotec"
     },
     {
         "name": "Oncology",
-        "value": "Late Discovery"
+        "value": "Late Discovery",
+        "exscentia": "Majority",
+        "Partner": "Evotec"
     },
     {
         "name": "Oncology",
-        "value": "Late Discovery"
+        "value": "Late Discovery",
+        "exscentia": "Majority",
+        "Partner": "Evotec"
     },
     {
         "name": "Anti-infective",
-        "value": "Late Discovery"
+        "value": "Late Discovery",
+        "exscentia": "Majority",
+        "Partner": "Evotec"
     },
     {
         "name": "Anti-infective",
-        "value": "EarlyDiscovery"
+        "value": "EarlyDiscovery",
+        "exscentia": "Majority",
+        "Partner": "Evotec"
     },
     {
         "name": "Oncology",
-        "value": "EarlyDiscovery"
+        "value": "EarlyDiscovery",
+        "exscentia": "Majority",
+        "Partner": "Evotec"
     },
     {
         "name": "Oncology",
-        "value": "EarlyDiscovery"
+        "value": "EarlyDiscovery",
+        "exscentia": "Majority",
+        "Partner": "Evotec"
     },
     {
         "name": "Covid-19",
-        "value": "EarlyDiscovery"
+        "value": "EarlyDiscovery",
+        "exscentia": "Majority",
+        "Partner": "Evotec"
     },
     {
         "name": "Covid-19",
-        "value": "Late Discovery"
+        "value": "Late Discovery",
+        "exscentia": "Majority",
+        "Partner": "Evotec"
     },
     {
         "name": "Covid-19",
-        "value": "Late Discovery"
+        "value": "Late Discovery",
+        "exscentia": "Majority",
+        "Partner": "Evotec"
     },
     {
         "name": "Infiammation & immunity",
-        "value": "EarlyDiscovery"
+        "value": "EarlyDiscovery",
+        "exscentia": "Majority",
+        "Partner": "Evotec"
     },
     {
         "name": "Infiammation & immunity",
-        "value": "EarlyDiscovery"
+        "value": "EarlyDiscovery",
+        "exscentia": "Majority",
+        "Partner": "Evotec"
     },
     {
         "name": "Infiammation & immunity",
-        "value": "EarlyDiscovery"
+        "value": "EarlyDiscovery",
+        "exscentia": "Majority",
+        "Partner": "Evotec"
     }
 ]

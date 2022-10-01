@@ -17,6 +17,8 @@ const xLabels = [
   "IND-enabling",
   "Phase 1",
   "Phase 2",
+  "Exscentia",
+  "Partner",
 ];
 
 const colorNameAccessor = (d) => d.name.split("_")[0];
@@ -34,8 +36,16 @@ d3.json("data.json").then(function (data) {
   // X axis
   console.log(data);
 
+  const dataClone = JSON.parse(JSON.stringify(data));
+
+  const newLabels = dataClone.map((d) => d.value);
+
+  console.log("new: ", newLabels);
+
   const x = d3.scalePoint().domain(xLabels).range([0, width]);
+
   const xAxis = d3.axisBottom(x).tickFormat(function (d, i) {
+    console.log(d);
     return d;
   });
   svg.append("g").attr("transform", `translate(0, ${height})`).call(xAxis);
@@ -48,6 +58,18 @@ d3.json("data.json").then(function (data) {
     data[i].name = data[i].name + "_" + i;
   }
   console.log(yLabels);
+  console.log(data);
+
+  data.sort(function (a, b) {
+    if (a.value < b.value) {
+      return 1;
+    }
+    if (a.value > b.value) {
+      return -1;
+    }
+    return 0;
+  });
+
   console.log(data);
   const y = d3.scaleBand().range([0, height]).domain(yLabels).padding(1);
   svg
@@ -81,6 +103,22 @@ d3.json("data.json").then(function (data) {
     })
     .attr("stroke", "grey");
 
+  svg
+    .selectAll("mytext")
+    .data(data)
+    .enter()
+    .append("text")
+    .attr("x", function (d) {
+      return x("Exscentia");
+    })
+    .attr("y", function (d) {
+      return y(d.name);
+    })
+    .text(function (d) {
+      return d.exscentia;
+    })
+    .attr("text-anchor", "middle");
+
   // Circles
   svg
     .selectAll("mycircle")
@@ -95,7 +133,6 @@ d3.json("data.json").then(function (data) {
     })
     .attr("r", "4")
     .style("fill", function (d) {
-      console.log(d);
       return colors[colorNameAccessor(d)];
     })
     .attr("stroke", "black");

@@ -34,13 +34,10 @@ const svg = d3
 
 d3.json("data.json").then(function (data) {
   // X axis
-  console.log(data);
 
   const dataClone = JSON.parse(JSON.stringify(data));
 
-  const newLabels = dataClone.map((d) => d.value);
-
-  console.log("new: ", newLabels);
+  const newLabels = dataClone.map((d) => d.value); //array di label duplicate
 
   const x = d3.scalePoint().domain(xLabels).range([0, width]);
 

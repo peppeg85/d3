@@ -116,6 +116,22 @@ d3.json("data.json").then(function (data) {
     })
     .attr("text-anchor", "middle");
 
+  svg
+    .selectAll("mytext")
+    .data(data)
+    .enter()
+    .append("text")
+    .attr("x", function (d) {
+      return x("Partner");
+    })
+    .attr("y", function (d) {
+      return y(d.name);
+    })
+    .text(function (d) {
+      return d.Partner;
+    })
+    .attr("text-anchor", "middle");
+
   // Circles
   svg
     .selectAll("mycircle")

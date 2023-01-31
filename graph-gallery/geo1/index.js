@@ -49,7 +49,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
     // Map and projection
     const path = d3.geoPath();
     const projection = d3
-      .geoMercator()
+      .geoAzimuthalEqualArea()
       .scale(70)
       .center([0, 20])
       .translate([width / 2, height / 2]);
@@ -73,6 +73,9 @@ window.addEventListener("DOMContentLoaded", (event) => {
       // set the color of each country
       .attr("fill", function (d) {
         d.total = dataset[d.id] || 0;
+        if (d.total == 0) {
+          return "#000";
+        }
         return colorScale(d.total);
       });
   }

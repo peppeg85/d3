@@ -35,11 +35,20 @@ d3.json(
     root
   );
 
+  // per fare il dominio dinamico
+
+  let dom = [];
+  for (let el of root.data.children) {
+    dom.push(el.name);
+  }
+  console.log("dom ", dom);
   // prepare a color scale
   const color = d3
     .scaleOrdinal()
-    .domain(["boss1", "boss2", "boss3"])
-    .range(["#333", "#D18975", "#8FD175"]);
+    // .domain(["boss1", "boss2", "boss3"])
+    .domain(dom)
+    //.range(["#333", "#D18975", "#8FD175"]);
+    .range(d3.schemeTableau10);
 
   // And a opacity scale
   const opacity = d3.scaleLinear().domain([10, 30]).range([0.5, 1]);

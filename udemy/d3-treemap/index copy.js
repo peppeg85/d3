@@ -13,27 +13,15 @@ const svg = d3
   .attr("transform", `translate(${margin.left}, ${margin.top})`);
 
 // read json data
-d3.csv(
+d3.json(
   //"https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/data_dendrogram_full.json"
-  "data2.csv"
+  "data.json"
 ).then(function (data) {
   console.log("json ", data);
-  /*   // Give the data to this cluster layout:
+  // Give the data to this cluster layout:
   const root = d3.hierarchy(data).sum(function (d) {
     return d.value;
-  }); // Here the size of each leave is given in the 'value' field in input data */
-
-  var root = d3
-    .stratify()
-    .id(function (d) {
-      return d.child;
-    })
-    .parentId(function (d) {
-      return d.parent;
-    })(data);
-  root.sum(function (d) {
-    return +d.value;
-  });
+  }); // Here the size of each leave is given in the 'value' field in input data
   console.log("root ", root);
   // Then d3.treemap computes the position of each element of the hierarchy
   d3
@@ -51,8 +39,8 @@ d3.csv(
   // per fare il dominio dinamico
 
   let dom = [];
-  for (let el of root.children) {
-    dom.push(el.id);
+  for (let el of root.data.children) {
+    dom.push(el.name);
   }
   console.log("dom ", dom);
   // prepare a color scale
@@ -63,13 +51,8 @@ d3.csv(
     //.range(["#333", "#D18975", "#8FD175"]);
     .range(d3.schemeTableau10);
 
-  // funzioni per calcolare max e min:
-  const max = Math.max(...data.map((el) => el.value));
-  const min = Math.min(...data.map((el) => el.value));
-  console.log("max ", max);
-  console.log("min ", min);
   // And a opacity scale
-  const opacity = d3.scaleLinear().domain([min, max]).range([0.5, 1]);
+  const opacity = d3.scaleLinear().domain([10, 30]).range([0.5, 1]);
 
   // use this information to add rectangles:
   svg
@@ -90,7 +73,7 @@ d3.csv(
     })
     .style("stroke", "black")
     .style("fill", function (d) {
-      return color(d.parent.data.child);
+      return color(d.parent.data.name);
     })
     .style("opacity", function (d) {
       return opacity(d.data.value);
@@ -101,6 +84,7 @@ d3.csv(
       });
     })
     .on("mouseleave", function (event, val) {
+      console.log(val);
       d3.select(this).style("opacity", function (d) {
         return opacity(val.value);
       });
@@ -119,8 +103,7 @@ d3.csv(
       return d.y0 + 20;
     }) // +20 to adjust position (lower)
     .text(function (d) {
-      return d.data.child;
-      //return d.data.name.replace("mister_", "");
+      return d.data.name.replace("mister_", "");
     })
     .attr("font-size", "19px")
     .attr("fill", "white");
